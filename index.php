@@ -1,5 +1,11 @@
 <?php
-    include"connection.php"
+    include"connection.php";
+// Initialize the session 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,17 +32,15 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="index.php">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="login.php">Login</a>
+        <li class="nav-item " >
+       <a href="logout.php"><button class="btn btn-danger">Sign Out</button></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="register.php">Register</a>
-        </li>
-      
       </ul>
     </div>
   </div>
 </nav>
+
+<h3>Hello  <?php echo htmlspecialchars($_SESSION["username"]); ?></h3>
 <?php
     include "footer.php"
 ?>

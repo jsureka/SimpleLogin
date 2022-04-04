@@ -1,5 +1,9 @@
 <?php
-    include "header.php"
+    include "header.php";
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        header("location: welcome.php");
+        exit;
+    }
 ?>
         <!-- Sing in  Form -->
         <section class="sign-in">
@@ -36,6 +40,12 @@
         
          $query = mysqli_query($db, "SELECT * FROM users WHERE u_name = '$u_name' AND u_password = '$u_password'");
          if(mysqli_num_rows($query)) {
+             session_start();
+            $_SESSION["loggedin"] = true;
+            $_SESSION["id"] = $id;
+            $_SESSION["username"] = $u_name;                            
+            
+            // Redirect user to welcome page
             header("Location: http://localhost:8090/SimpleLogin/index.php");
          }
          else
